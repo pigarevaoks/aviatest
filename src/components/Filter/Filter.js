@@ -1,44 +1,57 @@
 import React, { Component } from 'react';
 import './Filter.sass';
 
+function filterIds(filters) {
+	return filters.map((item) => {if (item.checked) { return item.value }})
+								.filter((item) => item !== undefined)
+}
+
 export default class Filter extends Component {
 	constructor(props) {
 		super(props);
-		this.selectStops = [];
 		this.state = {
+			selectAll: false,
 			filter: [
 				{
 					name: 'Без пересадок',
-					value: 0
+					value: 0,
+					checked: false
 				},
 				{
 					name: '1 пересадка',
-					value: 1
+					value: 1,
+					checked: false
 				},
 				{
 					name: '2 пересадки',
-					value: 2
+					value: 2,
+					checked: false
 				},
 				{
 					name: '3 пересадки',
-					value: 3
+					value: 3,
+					checked: false
 				}
-			],
-			selectedFilter: []
+			]
 		}
 		this.handleFilter = this.handleFilter.bind(this)
+		this.handleSelectAll = this.handleSelectAll.bind(this)
 	}
-	handleFilter(e) {
-		let array = this.state.selectedFilter;
-		console.log(this.refs);
-		if (e.target.checked) {
-			array.push(parseInt(e.target.value))
-		} else {
-			let index = array.indexOf(parseInt(e.target.value))
-			array.splice(index, 1)
-		}
-		this.props.updateFilter(array)
+	
+	handleFilter(checkbox) {
+		checkbox.checked = !checkbox.checked
+		this.props.updateFilter(filterIds(this.state.filter))
 	}
+
+	handleSelectAll() {
+		let filter = this.state.filter.map((item) => {
+			item.checked = !this.state.selectAll;
+			return item;
+		});
+		this.setState({ filter: filter, selectAll: !this.state.selectAll })
+		this.props.updateFilter(filterIds(this.state.filter))
+	}
+
 	render() {
 		return (
 			<section className="filter">
@@ -46,14 +59,17 @@ export default class Filter extends Component {
 				<div className="filter__inner">
 					<div className="filter__item">
 						<label>
-							<input type="checkbox" onChange={this.props.selectAll} ref={ (elem) => { this.selectAll = elem; }}/>
+							<input type="checkbox" onChange={this.handleSelectAll}
+										 checked={this.state.selectAll}/>
 							Все
 						</label>
 					</div>
 					{this.state.filter.map((checkbox, index) =>
 						<div className="filter__item" key={ index }>
 							<label>
-								<input type="checkbox" value={checkbox.value} onChange={this.handleFilter} />
+								<input type="checkbox" value={checkbox.value}
+									 		 onChange={ (e) => this.handleFilter(checkbox) }
+											 checked={ checkbox.checked }/>
 								{checkbox.name}
 							</label>
 						</div>

@@ -28,18 +28,13 @@ class App extends Component {
 		this.setState({ stopsCount: values })
 	}
 
-	handleAll() {
-		this.setState({ stopsCount: [] })
-	}
-
   render() {
     return (
       <div className="app">
 				<div className="app__inner">
 					<Logo />
-					<Filter tickets={ this.state.tickets } updateFilter={this.handleFilter.bind(this)}
-									selectAll={this.handleAll.bind(this)}/>
-					<TicketsList tickets={ this.state.tickets } stops={this.state.stopsCount}/>
+					<Filter updateFilter={this.handleFilter.bind(this)} />
+					<TicketsList tickets={ this.state.tickets } stops={this.state.stopsCount} />
 				</div>
       </div>
     );
