@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import declension from '../../helpers/declension.js'
 import './Filter.sass';
 
 function filterIds(filters) {
@@ -11,33 +12,19 @@ export default class Filter extends Component {
 		super(props);
 		this.state = {
 			selectAll: false,
-			filter: [
-				{
-					name: 'Без пересадок',
-					value: 0,
-					checked: false
-				},
-				{
-					name: '1 пересадка',
-					value: 1,
-					checked: false
-				},
-				{
-					name: '2 пересадки',
-					value: 2,
-					checked: false
-				},
-				{
-					name: '3 пересадки',
-					value: 3,
-					checked: false
-				}
-			]
+			filter: []
 		}
+
 		this.handleFilter = this.handleFilter.bind(this)
 		this.handleSelectAll = this.handleSelectAll.bind(this)
 	}
-	
+
+	componentWillReceiveProps(nextProps) {
+		this.setState({
+			filter: nextProps.filterItems
+		})
+	}
+
 	handleFilter(checkbox) {
 		checkbox.checked = !checkbox.checked
 		this.props.updateFilter(filterIds(this.state.filter))
@@ -70,7 +57,11 @@ export default class Filter extends Component {
 								<input type="checkbox" value={checkbox.value}
 									 		 onChange={ (e) => this.handleFilter(checkbox) }
 											 checked={ checkbox.checked }/>
-								{checkbox.name}
+										 <span>{checkbox.value != 0 && checkbox.value}</span>
+										 {checkbox.value ===  0
+											 ? 'Без пересадок'
+											 : declension(checkbox.value, ['пересадка', 'пересадки', 'пересадок'])
+										 }
 							</label>
 						</div>
 					)}
