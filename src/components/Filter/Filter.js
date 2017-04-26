@@ -17,6 +17,7 @@ export default class Filter extends Component {
 
 		this.handleFilter = this.handleFilter.bind(this)
 		this.handleSelectAll = this.handleSelectAll.bind(this)
+		this.handleOnly = this.handleOnly.bind(this)
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -36,6 +37,17 @@ export default class Filter extends Component {
 			return item;
 		});
 		this.setState({ filter: filter, selectAll: !this.state.selectAll })
+		this.props.updateFilter(filterIds(this.state.filter))
+	}
+
+	handleOnly(checkbox) {
+		checkbox.checked = true;
+		let filter = this.state.filter.map((item) => {
+			if (item != checkbox) { item.checked = false };
+			return item;
+		});
+
+		this.setState({ filter: filter, selectAll: false })
 		this.props.updateFilter(filterIds(this.state.filter))
 	}
 
@@ -63,6 +75,7 @@ export default class Filter extends Component {
 											 : declension(checkbox.value, ['пересадка', 'пересадки', 'пересадок'])
 										 }
 							</label>
+							<b onClick={(e) => this.handleOnly(checkbox)}>только</b>
 						</div>
 					)}
 				</div>
