@@ -3,7 +3,7 @@ import declension from '../../helpers/declension.js'
 import './Filter.sass';
 
 function filterIds(filters) {
-	return filters.map((item) => {if (item.checked) { return item.value }})
+	return filters.map((item) => item.checked ? item.value : undefined)
 								.filter((item) => item !== undefined)
 }
 
@@ -43,7 +43,7 @@ export default class Filter extends Component {
 	handleOnly(checkbox) {
 		checkbox.checked = true;
 		let filter = this.state.filter.map((item) => {
-			if (item != checkbox) { item.checked = false };
+			if (item !== checkbox) { item.checked = false };
 			return item;
 		});
 
@@ -57,25 +57,24 @@ export default class Filter extends Component {
 				<div className="filter__title">КОЛИЧЕСТВО ПЕРЕСАДОК</div>
 				<div className="filter__inner">
 					<div className="filter__item">
-						<label>
-							<input type="checkbox" onChange={this.handleSelectAll}
-										 checked={this.state.selectAll}/>
-							Все
-						</label>
+							<input className="filter__checkbox" type="checkbox" onChange={this.handleSelectAll}
+										 checked={this.state.selectAll} id="checkboxAll"/>
+							<label className="filter__label" htmlFor="checkboxAll">Все</label>
 					</div>
 					{this.state.filter.map((checkbox, index) =>
 						<div className="filter__item" key={ index }>
-							<label>
-								<input type="checkbox" value={checkbox.value}
+							<input className="filter__checkbox" type="checkbox" value={checkbox.value}
 									 		 onChange={ (e) => this.handleFilter(checkbox) }
-											 checked={ checkbox.checked }/>
-										 <span>{checkbox.value != 0 && checkbox.value}</span>
-										 {checkbox.value ===  0
-											 ? 'Без пересадок'
-											 : declension(checkbox.value, ['пересадка', 'пересадки', 'пересадок'])
-										 }
+											 checked={ checkbox.checked }
+											 id={`checkbox${checkbox.value}`}/>
+							<label className="filter__label" htmlFor={`checkbox${checkbox.value}`}>
+								<span>{checkbox.value !== 0 && checkbox.value}</span>
+								 {checkbox.value ===  0
+									 ? 'Без пересадок'
+									 : declension(checkbox.value, ['пересадка', 'пересадки', 'пересадок'])
+								 }
 							</label>
-							<b onClick={(e) => this.handleOnly(checkbox)}>только</b>
+							<span className="filter__only" onClick={(e) => this.handleOnly(checkbox)}>только</span>
 						</div>
 					)}
 				</div>

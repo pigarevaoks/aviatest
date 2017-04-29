@@ -10,7 +10,7 @@ export default class Ticket extends Component  {
 			<div className="ticket">
 				<div className="ticket__inner">
 					<div className="ticket__buy">
-						<img src={`../../images/${this.props.carrier}.png`} alt={this.props.carrier} className="ticket__company"/>
+						<img src={`https://pics.avs.io/149/50/${this.props.carrier}.png`} alt={this.props.carrier} className="ticket__company"/>
 						<Button price={this.props.price}/>
 					</div>
 					<div className="ticket__info">

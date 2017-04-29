@@ -1,4 +1,70 @@
 .filter
 	width: 232px
 	float: left
+	background-color: #FFFFFF
+	border-radius: 5px
+	padding: 15px 0
+	box-sizing: border-box
 	margin-right: 22px
+	&__title
+		font-size: 12px
+		line-height: 1.5
+		font-weight: 600
+		padding: 0 15px
+		box-sizing: border-box
+		margin-bottom: 10px
+	&__item
+		background-color: transparent
+		position: relative
+		padding: 0 15px
+		box-sizing: border-box
+		transition: background-color 0.4s
+		cursor: pointer
+		&:hover
+			background-color: #F2FDFF
+	&__checkbox
+		display: none
+		&:checked + label::before
+			background: #F2FDFF url('./checked.svg') no-repeat center
+			background-size: 9px 7px
+			border-color: #3E9CE8
+	&__label
+		display: block
+		width: 100%
+		font-size: 13px
+		line-height: 35px
+		font-weight: 400
+		color: #4A4A4A
+		position: relative
+		padding-left: 30px
+		box-sizing: border-box
+		cursor: pointer
+		span
+			margin-right: 5px
+	&__label::before
+		content: ''
+		width: 19px
+		height: 19px
+		display: block
+		border-radius: 3px
+		border: 1px solid #D3D5D6
+		box-sizing: border-box
+		position: absolute
+		top: 8px
+		left: 0
+		transition: background-color 0.4s, border-color 0.4s
+	&__only
+		font-size: 11px
+		line-height: 35px
+		font-weight: 600
+		color: #3E9CE8
+		text-transform: uppercase
+		opacity: 0
+		position: absolute
+		right: 15px
+		top: 0
+		z-index: 100
+		cursor: pointer
+		transition: opacity 0.4s
+		&:hover
+			opacity: 1

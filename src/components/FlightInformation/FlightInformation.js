@@ -19,10 +19,10 @@ export default class FlightInformation extends Component {
 		});
 	}
 	render() {
-		const additionalClasses = [];
+		let additionalClasses = [];
 		if (this.props.modifiers !== '') {
-			this.props.modifiers.split(',').map((modifier) => {
-				additionalClasses.push(['flightInformation' + `_${modifier}`]);
+			additionalClasses = this.props.modifiers.split(',').map((modifier) => {
+				return [`flightInformation_${modifier}`];
 			});
 		}
 		const classes = `flightInformation ${additionalClasses}`;

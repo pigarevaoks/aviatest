@@ -10,10 +10,6 @@ function renderTickets(tickets, stops) {
 	});
 }
 export default class TicketsList extends Component {
-	constructor(props) {
-		super(props);
-	}
-
 	render() {
 		return (
 			<section className="ticketsList">
