@@ -19,6 +19,8 @@ class App extends Component {
 		 	stopsCount: [],
 			filterData: []
 		};
+
+		this.handleFilter = this.handleFilter.bind(this)
 	}
 
 	componentDidMount() {
@@ -45,8 +47,8 @@ class App extends Component {
 				<div className="app__inner">
 					<Logo />
 					<Filter filterItems={ this.state.filterData }
-									updateFilter={this.handleFilter.bind(this)} />
-					<TicketsList tickets={ this.state.tickets } stops={this.state.stopsCount} />
+									updateFilter={ this.handleFilter } />
+					<TicketsList tickets={ this.state.tickets } stops={ this.state.stopsCount } />
 				</div>
       </div>
     );

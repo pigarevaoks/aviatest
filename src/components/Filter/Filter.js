@@ -36,7 +36,9 @@ export default class Filter extends Component {
 			item.checked = !this.state.selectAll;
 			return item;
 		});
-		this.setState({ filter: filter, selectAll: !this.state.selectAll })
+		this.setState((prevState) => {
+			return { filter: filter, selectAll: !prevState.selectAll }
+		});
 		this.props.updateFilter(filterIds(this.state.filter))
 	}
 
